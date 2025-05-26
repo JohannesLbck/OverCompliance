@@ -1,0 +1,14 @@
+{
+	"R1": {
+		"condition": "time > 604800",
+		"consequence": "W_Valideren aanvraag-SCHEDULE -> W_Valideren aanvraag-START"
+	},
+	 "R2": {
+                "condition": "time > 3600",
+                "consequence": "ER Sepsis Triage -> IV Antibiotics"
+        },
+        "R3": { 
+                "condition": "time > 10800",
+                "consequence": "ER Sepsis Triage -> LacticAcid"
+        }
+}
