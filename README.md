@@ -17,4 +17,11 @@ There are two main scripts one for working with the BPIC and Sepsis datasets (A)
 
 ## (B) Identification for the Synthetic Dataset
 
+There are 3 Synthetic Datasets O, U, M where O contains overcompliant traces, U contains undercompliant traces while finnaly M contains both over and undercompliant traces (meaning undercompliant processes). You can check any requirement of the running example on any of the processes, but in practice it makes the most sense to check them as described in the Paper. For this use the Quickstart Check below
+
 1. Git Clone
+2. `python3 synth_identify_all.py`
+
+However you can also check specific requirements on specific datasets by passing the arguments:
+
+1. `python3 synth_identify.py --r RX.X --d Y` where X in {R1, R2, R3.1, R3.2} and Y in {O, U, M}
