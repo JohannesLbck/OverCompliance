@@ -7,9 +7,9 @@ import sys
 # Map each requirement ID to its associated dataset
 REQUIREMENT_TO_DATASET = {
     #'R1': 'DataSets/bpicR1.csv',
-    'R1': 'DataSets/BPI_12.csv',
-    'R2': 'DataSets/Sepsis_R2.csv',
-    'R3': 'DataSets/Sepsis_R3.csv'
+    'R1': 'DataSets/Real/BPI_12.csv',
+    'R2': 'DataSets/Real/Sepsis_R2.csv',
+    'R3': 'DataSets/Real/Sepsis_R3.csv'
 }
 
 def parse_requirement(req):
@@ -191,7 +191,10 @@ def main():
         pct_negative = (negative / total_with_missing_as_violation) * 100
         pct_zero = (zero / total_with_missing_as_violation) * 100
         pct_missing = (missing / total_with_missing_as_violation) * 100
-        
+
+        test= ((negative-total)/total)*100
+        print(f"Violations with the same formula as in the paper {test}")
+
         print("\n📈 Delta Distribution (with missing transitions as violations):")
         print(f"- % Positive deltas (violations): {pct_pure_positive:.2f}%")
         print(f"- % Positive deltas wtih missing (violations): {pct_positive:.2f}%")

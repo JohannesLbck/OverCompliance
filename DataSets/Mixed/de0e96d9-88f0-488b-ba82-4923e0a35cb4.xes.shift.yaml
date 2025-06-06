@@ -1,0 +1,1059 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+    shift: https://cpee.org/time-shifting/time-shifting.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 2377
+    cpee:name: MaximallyOverCompliant
+    cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: endpoints/change
+  data:
+  - name: timeout
+    value: https://cpee.org/services/timeout.php
+  - name: subprocess
+    value: https://cpee.org/flow/start/url/
+  time:timestamp: '2025-06-06T09:32:40.799492+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-06-06T09:32:40.794899+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  data:
+  - name: basedate
+    value: '2025-05-05'
+  time:timestamp: '2025-06-06T09:32:40.797608+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: guarded
+    value: none
+  - name: modeltype
+    value: CPEE
+  - name: theme
+    value: extended
+  - name: guarded_id
+    value: ''
+  - name: info
+    value: MaximallyOverCompliant
+  - name: creator
+    value: Christine Ashcreek
+  - name: author
+    value: Christine Ashcreek
+  - name: model_uuid
+    value: 8931d164-0666-4c66-bb13-9acd5646cb73
+  - name: model_version
+    value: ''
+  - name: design_stage
+    value: development
+  - name: design_dir
+    value: Staff.dir/Loebbi.dir/Overcompliance.dir
+  time:timestamp: '2025-06-06T09:32:40.802194+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <_generic/>
+      <_shifting>
+        <_shifting_factor>2 seconds</_shifting_factor>
+        <_shifting_start>!data.basedate + ", 12:00"</_shifting_start>
+        <_shifting_modifier>5</_shifting_modifier>
+      </_shifting>
+      <_context_data_analysis>
+        <probes/>
+        <ips/>
+      </_context_data_analysis>
+      <call id="a1" endpoint="timeout">
+        <parameters>
+          <label>Receive Loan Request</label>
+          <method>:post</method>
+          <arguments>
+            <timeout>!rand(0.1.. 0.5) </timeout>
+          </arguments>
+        </parameters>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+      </call>
+      <call id="a2" endpoint="timeout">
+        <parameters>
+          <label>Create Loan File</label>
+          <method>:post</method>
+          <arguments>
+            <timeout>!rand(0.1.. 0.5) </timeout>
+          </arguments>
+        </parameters>
+        <code>
+          <prepare/>
+          <finalize output="result">data.loan_amount = rand(500..60000)</finalize>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+      <call id="a3" endpoint="timeout">
+        <parameters>
+          <label>Check Credit Worthiness</label>
+          <method>:post</method>
+          <arguments>
+            <timeout>!rand(1.. 15) </timeout>
+          </arguments>
+        </parameters>
+        <code>
+          <prepare/>
+          <finalize output="result">data.credit_worthy = [true, true, true, false].sample</finalize>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+            <_shifting_expression>!rand(1..3).to_s + &#x2019; days'  </_shifting_expression>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="data.credit_worthy">
+          <call id="a9" endpoint="timeout">
+            <parameters>
+              <label>Evaluate Loan Risk</label>
+              <method>:post</method>
+              <arguments>
+                <timeout>!rand(5.0.. 30.0) </timeout>
+              </arguments>
+            </parameters>
+            <code>
+              <prepare/>
+              <finalize output="result">data.low_risk = [true, true, true, false].sample</finalize>
+              <update output="result"/>
+              <rescue output="result"/>
+            </code>
+            <annotations>
+              <_generic/>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+                <_shifting_expression>!rand(2..5).to_s + &#x2019; days'  </_shifting_expression>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+              <code>
+                <description/>
+              </code>
+            </documentation>
+          </call>
+          <choose mode="exclusive">
+            <alternative condition="data.low_risk">
+              <_probability>
+                <_probability_min/>
+                <_probability_max/>
+                <_probability_avg/>
+              </_probability>
+            </alternative>
+            <otherwise>
+              <call id="a10" endpoint="timeout">
+                <parameters>
+                  <label>Decline due to High Risk</label>
+                  <method>:post</method>
+                  <arguments>
+                    <timeout>!rand(0.1.. 0.5) </timeout>
+                  </arguments>
+                </parameters>
+                <code>
+                  <prepare/>
+                  <finalize output="result"/>
+                  <update output="result"/>
+                  <rescue output="result"/>
+                </code>
+                <annotations>
+                  <_generic/>
+                  <_timing>
+                    <_timing_weight/>
+                    <_timing_avg/>
+                    <explanations/>
+                  </_timing>
+                  <_shifting>
+                    <_shifting_type>Duration</_shifting_type>
+                  </_shifting>
+                  <_context_data_analysis>
+                    <probes/>
+                    <ips/>
+                  </_context_data_analysis>
+                  <report>
+                    <url/>
+                  </report>
+                  <_notes>
+                    <_notes_general/>
+                  </_notes>
+                </annotations>
+                <documentation>
+                  <input/>
+                  <output/>
+                  <implementation>
+                    <description/>
+                  </implementation>
+                  <code>
+                    <description/>
+                  </code>
+                </documentation>
+              </call>
+              <terminate/>
+            </otherwise>
+          </choose>
+          <_probability>
+            <_probability_min/>
+            <_probability_max/>
+            <_probability_avg/>
+          </_probability>
+        </alternative>
+        <otherwise>
+          <call id="a4" endpoint="timeout">
+            <parameters>
+              <label>Decline due to bad credit worthiness</label>
+              <method>:post</method>
+              <arguments>
+                <timeout>!rand(0.1.. 0.5) </timeout>
+              </arguments>
+            </parameters>
+            <annotations>
+              <_generic/>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+            </documentation>
+          </call>
+          <terminate/>
+        </otherwise>
+      </choose>
+      <call id="a7" endpoint="timeout">
+        <parameters>
+          <label>Initialize Loan Contract</label>
+          <method>:post</method>
+          <arguments>
+            <timeout>!rand(0.1.. 0.5) </timeout>
+          </arguments>
+        </parameters>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+      </call>
+      <call id="a8" endpoint="timeout">
+        <parameters>
+          <label>Sign Loan Contract</label>
+          <method>:post</method>
+          <arguments>
+            <timeout>!rand(1.0.. 15.0) </timeout>
+          </arguments>
+        </parameters>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+            <_shifting_expression>!rand(1.. 3).to_s + &#x2019; days'  </_shifting_expression>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+      </call>
+    </description>
+  time:timestamp: '2025-06-06T09:32:40.814692+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2025-06-06T09:32:41.594453+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: guarded
+    value: none
+  - name: guarded_id
+    value: ''
+  time:timestamp: '2025-06-06T09:32:41.658758+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-06-06T09:32:41.650518+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-06-06T09:32:41.751680+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-06-06T09:32:41.855632+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-06-06T09:32:41.850727+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2025-06-06T09:51:50.772715+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-06-06T09:51:50.813430+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: guarded
+    value: none
+  - name: guarded_id
+    value: ''
+  time:timestamp: '2025-06-06T09:51:50.819129+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-06-06T09:51:50.960207+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-06-06T09:51:50.993621+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-06-06T09:51:50.991062+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2025-06-06T11:33:04.891006+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-06-06T11:33:04.950892+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: guarded
+    value: none
+  - name: guarded_id
+    value: ''
+  time:timestamp: '2025-06-06T11:33:04.975162+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-06-06T11:33:05.079203+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-06-06T11:33:05.172419+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-06-06T11:33:05.169414+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: running
+  time:timestamp: '2025-06-06T11:33:06.194404+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Receive Loan Request
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a1
+  cpee:activity: a1
+  cpee:activity_uuid: f9bff3a144d16043945bb7e5fe106d96
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: start
+  cpee:lifecycle:transition: activity/calling
+  data:
+  - name: timeout
+    value: 0.3574330185739071
+  time:timestamp: '2025-06-06T11:33:06.228259+02:00'
+  shift:timestamp: '2025-05-05T12:00:10.00+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Receive Loan Request
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a1
+  cpee:activity: a1
+  cpee:activity_uuid: f9bff3a144d16043945bb7e5fe106d96
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: result
+    mimetype: text/html
+    data: 'Timeout: 0.3574330185739071'
+  time:timestamp: '2025-06-06T11:33:06.608719+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Receive Loan Request
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a1
+  cpee:activity: a1
+  cpee:activity_uuid: f9bff3a144d16043945bb7e5fe106d96
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: complete
+  cpee:lifecycle:transition: activity/done
+  time:timestamp: '2025-06-06T11:33:06.625292+02:00'
+  shift:timestamp: '2025-05-05T12:00:10.79+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Create Loan File
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a2
+  cpee:activity: a2
+  cpee:activity_uuid: df109d297e540e1af07037f91232ed88
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: start
+  cpee:lifecycle:transition: activity/calling
+  data:
+  - name: timeout
+    value: 0.1372567941506957
+  time:timestamp: '2025-06-06T11:33:06.660838+02:00'
+  shift:timestamp: '2025-05-05T12:00:10.79+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Create Loan File
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a2
+  cpee:activity: a2
+  cpee:activity_uuid: df109d297e540e1af07037f91232ed88
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: result
+    mimetype: text/html
+    data: 'Timeout: 0.1372567941506957'
+  time:timestamp: '2025-06-06T11:33:06.806594+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Create Loan File
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a2
+  cpee:activity: a2
+  cpee:activity_uuid: df109d297e540e1af07037f91232ed88
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: complete
+  cpee:lifecycle:transition: activity/done
+  time:timestamp: '2025-06-06T11:33:06.832454+02:00'
+  shift:timestamp: '2025-05-05T12:00:11.13+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Create Loan File
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a2
+  cpee:activity: a2
+  cpee:activity_uuid: df109d297e540e1af07037f91232ed88
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  data:
+  - name: loan_amount
+    value: 49953
+  time:timestamp: '2025-06-06T11:33:06.832217+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Check Credit Worthiness
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a3
+  cpee:activity: a3
+  cpee:activity_uuid: 44dab956cd88f6456ea9594a367f671c
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: start
+  cpee:lifecycle:transition: activity/calling
+  data:
+  - name: timeout
+    value: 7
+  time:timestamp: '2025-06-06T11:33:06.866519+02:00'
+  shift:timestamp: '2025-05-05T12:00:11.13+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Check Credit Worthiness
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a3
+  cpee:activity: a3
+  cpee:activity_uuid: 44dab956cd88f6456ea9594a367f671c
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: result
+    mimetype: text/html
+    data: 'Timeout: 7'
+  time:timestamp: '2025-06-06T11:33:13.881357+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Check Credit Worthiness
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a3
+  cpee:activity: a3
+  cpee:activity_uuid: 44dab956cd88f6456ea9594a367f671c
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: complete
+  cpee:lifecycle:transition: activity/done
+  time:timestamp: '2025-06-06T11:33:13.904933+02:00'
+  shift:timestamp: '2025-05-05T12:00:25.21+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Check Credit Worthiness
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a3
+  cpee:activity: a3
+  cpee:activity_uuid: 44dab956cd88f6456ea9594a367f671c
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  data:
+  - name: credit_worthy
+    value: true
+  time:timestamp: '2025-06-06T11:33:13.904729+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: start
+  cpee:lifecycle:transition: gateway/decide
+  time:timestamp: '2025-06-06T11:33:13.926001+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Evaluate Loan Risk
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a9
+  cpee:activity: a9
+  cpee:activity_uuid: 4f8d4f5d8bf660a680e1f393fb2096d8
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: start
+  cpee:lifecycle:transition: activity/calling
+  data:
+  - name: timeout
+    value: 12.332670073827952
+  time:timestamp: '2025-06-06T11:33:13.947829+02:00'
+  shift:timestamp: '2025-05-05T12:00:25.21+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Evaluate Loan Risk
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a9
+  cpee:activity: a9
+  cpee:activity_uuid: 4f8d4f5d8bf660a680e1f393fb2096d8
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: result
+    mimetype: text/html
+    data: 'Timeout: 12.332670073827952'
+  time:timestamp: '2025-06-06T11:33:26.290185+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Evaluate Loan Risk
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a9
+  cpee:activity: a9
+  cpee:activity_uuid: 4f8d4f5d8bf660a680e1f393fb2096d8
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  data:
+  - name: low_risk
+    value: true
+  time:timestamp: '2025-06-06T11:33:26.317726+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Evaluate Loan Risk
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a9
+  cpee:activity: a9
+  cpee:activity_uuid: 4f8d4f5d8bf660a680e1f393fb2096d8
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: complete
+  cpee:lifecycle:transition: activity/done
+  time:timestamp: '2025-06-06T11:33:26.317885+02:00'
+  shift:timestamp: '2025-05-05T12:00:49.95+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: start
+  cpee:lifecycle:transition: gateway/decide
+  time:timestamp: '2025-06-06T11:33:26.340436+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: start
+  cpee:lifecycle:transition: gateway/join
+  time:timestamp: '2025-06-06T11:33:26.340593+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: start
+  cpee:lifecycle:transition: gateway/join
+  time:timestamp: '2025-06-06T11:33:26.340895+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Initialize Loan Contract
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a7
+  cpee:activity: a7
+  cpee:activity_uuid: 9c5d82f20b380b48ba8aaa5aa2570ba9
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: start
+  cpee:lifecycle:transition: activity/calling
+  data:
+  - name: timeout
+    value: 0.12780964418510374
+  time:timestamp: '2025-06-06T11:33:26.360530+02:00'
+  shift:timestamp: '2025-05-05T12:00:49.95+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Initialize Loan Contract
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a7
+  cpee:activity: a7
+  cpee:activity_uuid: 9c5d82f20b380b48ba8aaa5aa2570ba9
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: result
+    mimetype: text/html
+    data: 'Timeout: 0.12780964418510374'
+  time:timestamp: '2025-06-06T11:33:26.502324+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Initialize Loan Contract
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a7
+  cpee:activity: a7
+  cpee:activity_uuid: 9c5d82f20b380b48ba8aaa5aa2570ba9
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: complete
+  cpee:lifecycle:transition: activity/done
+  time:timestamp: '2025-06-06T11:33:26.517756+02:00'
+  shift:timestamp: '2025-05-05T12:00:50.26+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Sign Loan Contract
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a8
+  cpee:activity: a8
+  cpee:activity_uuid: 2b5bd748942d28b315d6206ed442b4f0
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: start
+  cpee:lifecycle:transition: activity/calling
+  data:
+  - name: timeout
+    value: 3.7908664351499093
+  time:timestamp: '2025-06-06T11:33:26.549264+02:00'
+  shift:timestamp: '2025-05-05T12:00:50.26+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Sign Loan Contract
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a8
+  cpee:activity: a8
+  cpee:activity_uuid: 2b5bd748942d28b315d6206ed442b4f0
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: result
+    mimetype: text/html
+    data: 'Timeout: 3.7908664351499093'
+  time:timestamp: '2025-06-06T11:33:30.348490+02:00'
+---
+event:
+  concept:instance: 2377
+  concept:name: Sign Loan Contract
+  concept:endpoint: https://cpee.org/services/timeout.php
+  id:id: a8
+  cpee:activity: a8
+  cpee:activity_uuid: 2b5bd748942d28b315d6206ed442b4f0
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: complete
+  cpee:lifecycle:transition: activity/done
+  time:timestamp: '2025-06-06T11:33:30.364482+02:00'
+  shift:timestamp: '2025-05-05T12:00:57.89+02:00'
+---
+event:
+  concept:instance: 2377
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de0e96d9-88f0-488b-ba82-4923e0a35cb4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: finished
+  time:timestamp: '2025-06-06T11:33:30.377999+02:00'
