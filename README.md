@@ -2,10 +2,10 @@
 
 QuickStart:
 1. Git Clone
-2. `python3 identify.py `
+2. `python3 synth_identify.py --r R2 --d M`
 3. If any packages are missing, use your preferred virtual env and `pip install -r requirements.txt`
 
-This repository contains the code for the evaluation of the ... Paper.
+Quickstart will test Requirement R2 on dataset M which is also used for the cost calculation example.
 
 There are two main scripts one for working with the BPIC and Sepsis datasets (A) and one for identification in the Synthetic datasets (B):
 
@@ -17,11 +17,11 @@ There are two main scripts one for working with the BPIC and Sepsis datasets (A)
 
 ## (B) Identification for the Synthetic Dataset
 
-There are 3 Synthetic Datasets O, U, M where O contains overcompliant traces, U contains undercompliant traces while finnaly M contains both over and undercompliant traces (meaning undercompliant processes). You can check any requirement of the running example on any of the processes, but in practice it makes the most sense to check them as described in the Paper. For this use the Quickstart Check below
-
-1. Git Clone
-2. `python3 synth_identify_all.py`
-
-However you can also check specific requirements on specific datasets by passing the arguments:
+There are 3 Synthetic Datasets O, U, M where O contains overcompliant traces, U contains undercompliant traces while finnaly M contains both over and undercompliant traces (meaning undercompliant processes). You can check any requirement of the running example on any of the processes using the script below. 
 
 1. `python3 synth_identify.py --r RX.X --d Y` where X in {R1, R2, R3.1, R3.2} and Y in {O, U, M}
+
+There is also a little script which is used for estimating the costs at discrete levels:
+
+1. `python3 discrete_levels.py`
+

@@ -6,47 +6,34 @@ import os
 from preprocessing import *
 from identifiers import *
 
-dict_paths = {
-    'M' : 'DataSets/Mixed',
-    'O' : 'DataSets/Over',
-    'U' : 'DataSets/Under'
-        }
-verifiers = {
-    'R1' : verify_r1,
-    'R2' : verify_r2,
-    'R31' : verify_r31,
-    'R32' : verify_r32
-        }
 
-parser = argparse.ArgumentParser(description="Evaluate a specific requirement")
-parser.add_argument('--r', type=str, default='R2', choices=['R1', 'R2', 'R31', 'R32'], help= 'Which requirement to evaluate')
-parser.add_argument('--d', type=str, default='M', choices=['M', 'O', 'U'], help = "Which dataset to use for the evaluation")
-
-args = parser.parse_args()
-
-data = load_all(dict_paths[args.d])
-
-print(data)
+data = load_all('DataSets/Mixed')
 
 Set_Compliant = []
 Set_C = []
 Set_I = []
 Set_Per = []
+Set_C_5000 = []
+Set_C_50000 = []
 for trace in data:
-    compliant, c, i, per = verifiers[args.r](trace)
+    compliant, c, i, per, c_5000, c_50000 = r2_discrete_levels(trace)
     Set_Compliant.append(compliant)
     Set_C.append(c)
     Set_I.append(i)
     Set_Per.append(per)
+    Set_C_5000.append(c_5000)
+    Set_C_50000.append(c_50000)
 
 print(f'The process has {len(data)} traces')
 
 max_over_compliance = (1-(sum(Set_C)/len(data)))
+print(f'In the Process {sum(Set_C_5000)} traces are credit worthy and above 5000')
+print(f'In the Process {sum(Set_C_50000)} traces are credit worthy and above 50000')
 print(f'The process has {sum(Set_Compliant)} compliant traces (|Compliant|)')
 print(f'The process requires the execution of the consequence in {sum(Set_C)} traces (|C|)')
 print(f'The process is executing the consequence in {sum(Set_I)} traces (|I|)')
 print(f'The process is correctly executing the consequence in {sum(Set_Per)} traces (|Per|)')
-over_compliance_level = ((sum(Set_I)-sum(Set_Per))/len(data))
+over_compliance_level = ((sum(Set_I)-sum(Set_C))/len(data))
 print(f'The over-compliance level of the process is {over_compliance_level*100}%')
 print(f'The maximal over-compliance level of the process is {max_over_compliance*100}%')
 under_compliance_level = ((sum(Set_Per)-sum(Set_C))/len(data))
@@ -78,3 +65,5 @@ print(f'u*C_viol + (c-p)*C_con - (c-p)*P_over = Cost')
 print(f'{u}*{C_viol} + ({c}-{p})*{C_con} - ({c}-{p})*{P_over} = {Cost}')
 Cost_V2 = abs(under_compliance_level)*C_viol + over_compliance_level*C_con - abs(over_compliance_level)*P_over
 print(Cost_V2)
+
+
