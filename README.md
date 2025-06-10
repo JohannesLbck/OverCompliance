@@ -19,7 +19,7 @@ There are two main scripts one for working with the BPIC and Sepsis datasets (A)
 
 There are 3 Synthetic Datasets O, U, M where O contains overcompliant traces, U contains undercompliant traces while finnaly M contains both over and undercompliant traces (meaning undercompliant processes). You can check any requirement of the running example on any of the processes using the script below. 
 
-1. `python3 synth_identify.py --r RX.X --d Y` where X in {R1, R2, R3.1, R3.2} and Y in {O, U, M}
+1. `python3 synth_identify.py --r RXX --d Y` where X in {R1, R2, R31, R32} and Y in {O, U, M}
 
 There is also a little script which is used for estimating the costs at discrete levels:
 
