@@ -12,7 +12,7 @@ There are two main scripts one for working with the BPIC and Sepsis datasets (A)
 ## (A) Identifcation for BPIC/Sepsis
 
 1. Git Clone
-2. `python3 identify.py --requirement SX --requirements requirements.json` where X refers to the requirements ID, i.e., options are --requirement B1, S1, S2
+2. `python3 identify.py --requirement XX --requirements requirements.json` where X refers to the requirements ID, i.e., options are --requirement B1, S1, S2
 3. If any packages are missing, use your preferred virtual env and `pip install -r requirements.txt`
 
 ## (B) Identification for the Synthetic Dataset
