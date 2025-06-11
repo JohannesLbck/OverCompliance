@@ -3,20 +3,26 @@ import argparse
 import json
 import re
 import sys
+import pm4py
+from pm4py.objects.log.importer.xes import importer as xes_importer
 
 # Map each requirement ID to its associated dataset
 REQUIREMENT_TO_DATASET = {
     #'R1': 'DataSets/bpicR1.csv',
     'R1': 'DataSets/Real/BPI_12.csv',
-    'R2': 'DataSets/Real/Sepsis_R2.csv',
-    'R3': 'DataSets/Real/Sepsis_R3.csv'
+    'S1': 'DataSets/Real/Sepsis_R2.csv',
+    'S2': 'DataSets/Real/Sepsis_R3.csv',
+    'B1': 'DataSets/Real/BPI_12.csv',
+
 }
 
 def parse_requirement(req):
     """Parse condition and consequence from the requirement"""
     condition_seconds = int(re.findall(r'\d+', req['condition'])[0])
     from_label, to_label = [x.strip() for x in req['consequence'].split('->')]
-    return condition_seconds, from_label, to_label
+    livecycle_start = req["livecycle_start"]
+    livecycle_end = req["livecycle_end"]
+    return condition_seconds, from_label, to_label, livecycle_start, livecycle_end
 
 def identify_conditional_followups(df, result_df):
     print("\n🔎 Identifying conditional follow-up steps for violations...")
@@ -83,6 +89,49 @@ def identify_conditional_followups(df, result_df):
         print("None found.")
 
 
+def r1_evaluation(log, activity_name, required_seconds ):
+    results = []
+
+    activity_name = activity_name.strip()
+
+    for trace in log:
+        case_id = trace.attributes.get('concept:name')
+        schedule_time = None
+        start_time = None
+
+        for event in trace:
+            event_activity = str(event.get('concept:name', '')).strip()
+            transition = str(event.get('lifecycle:transition', '')).strip().upper()
+            timestamp = event.get('time:timestamp')
+
+            if event_activity == activity_name:
+                if transition == 'SCHEDULE' and schedule_time is None:
+                    schedule_time = timestamp
+                elif transition == 'START' and start_time is None:
+                    start_time = timestamp
+
+            # If both found, no need to continue
+            if schedule_time and start_time:
+                break
+
+        if schedule_time and start_time:
+            actual_diff = (start_time - schedule_time).total_seconds()
+            delta = actual_diff - required_seconds
+
+            results.append({
+                'case:concept:name': case_id,
+                'activity': activity_name,
+                'from': 'SCHEDULE',
+                'to': 'START',
+                'from_time': schedule_time,
+                'to_time': start_time,
+                'actual_seconds': actual_diff,
+                'required_seconds': required_seconds,
+                'delta_seconds': delta
+            })
+
+    return pd.DataFrame(results)
+
 def evaluate_requirement(df, from_label, to_label, condition_seconds):
     """Compute time deltas for each occurrence of from_label leading to the next to_label"""
     results = []
@@ -126,9 +175,9 @@ def evaluate_requirement(df, from_label, to_label, condition_seconds):
 
 def main():
     parser = argparse.ArgumentParser(description="Evaluate a specific temporal requirement.")
-    parser.add_argument('--requirement', type=str, default='R2',
-                        choices=['R1', 'R2', 'R3'],
-                        help='Requirement ID to evaluate (e.g., R1, R2, R3)')
+    parser.add_argument('--requirement', type=str, default='B1',
+                        choices=['B1', 'S1', 'S2'],
+                        help='Requirement ID to evaluate (e.g., B1, S1, S2)')
     parser.add_argument('--requirements', type=str, default='requirements.json',
                         help='Path to the JSON file with requirements')
 
@@ -157,10 +206,14 @@ def main():
 
     # Parse and evaluate requirement
     req = requirements[requirement_id]
-    condition_seconds, from_label, to_label = parse_requirement(req)
-
+    condition_seconds, from_label, to_label, livecycle_start, livecycle_end = parse_requirement(req)
     print(f"\n=== Evaluating {requirement_id}: {from_label} -> {to_label}, required ≤ {condition_seconds}s ===")
-    result_df = evaluate_requirement(df, from_label, to_label, condition_seconds)
+    if from_label in to_label:
+        print(f"labels are identical, identifying by livecycle transitions instead")
+        log = xes_importer.apply('DataSets/Real/BPI_Challenge_2012.xes')
+        result_df = r1_evaluation(log, from_label, condition_seconds)
+    else:
+        result_df = evaluate_requirement(df, from_label, to_label, condition_seconds)
 
     if result_df.empty:
         print("No matching events found.")
@@ -176,10 +229,15 @@ def main():
 
         # Count positive, negative, zero deltas, and NaNs
         total = len(result_df)
+        print(f'total: {total}')
         positive = (result_df['delta_seconds'] > 0).sum()
+        print(f'positive: {positive}')
         negative = (result_df['delta_seconds'] < 0).sum()
+        print(f'negative: {negative}')
         zero = (result_df['delta_seconds'] == 0).sum()
+        print(f'zero: {zero}')
         missing = result_df['delta_seconds'].isna().sum()
+        print(f'missing: {missing}')
 
         # Count NaNs as positive violations
         total_with_missing_as_violation = total

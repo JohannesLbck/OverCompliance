@@ -1,14 +1,26 @@
 {
-	"R1": {
+	"R1_deprecated": {
 		"condition": "time > 604800",
-		"consequence": "W_Valideren aanvraag-SCHEDULE -> W_Valideren aanvraag-START"
+		"consequence": "W_Valideren aanvraag -> W_Valideren aanvraag",
+                "livecycle_start": "SCHEDUlE",
+                "livecycle_end": "START"
 	},
-	 "R2": {
+	 "RS1": {
                 "condition": "time > 3600",
-                "consequence": "ER Sepsis Triage -> IV Antibiotics"
+                "consequence": "ER Sepsis Triage -> IV Antibiotics",
+                "livecycle_start": "None",
+                "livecycle_end": "None"
         },
-        "R3": { 
+        "RS2": { 
                 "condition": "time > 10800",
-                "consequence": "ER Sepsis Triage -> LacticAcid"
+                "consequence": "ER Sepsis Triage -> LacticAcid",
+                "livecycle_start": "None",
+                "livecycle_end": "None"
+        },
+        "B1": { 
+                "condition": "time > 86400",
+                "consequence": "A_SUBMITTED -> A_ACCEPTED",
+                "livecycle_start": "None",
+                "livecycle_end": "None"
         }
 }
