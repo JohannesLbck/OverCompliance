@@ -260,7 +260,7 @@ def main():
         print(f"- % Zero deltas (exact match):    {pct_zero:.2f}%")
         print(f"- (Included {missing} cases with missing 'to' label as violations which are {pct_missing:.2f}%)")
 
-        identify_conditional_followups(df, result_df)
+        #identify_conditional_followups(df, result_df)
 
 if __name__ == "__main__":
     main()

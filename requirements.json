@@ -5,13 +5,13 @@
                 "livecycle_start": "SCHEDUlE",
                 "livecycle_end": "START"
 	},
-	 "RS1": {
+	 "S1": {
                 "condition": "time > 3600",
                 "consequence": "ER Sepsis Triage -> IV Antibiotics",
                 "livecycle_start": "None",
                 "livecycle_end": "None"
         },
-        "RS2": { 
+        "S2": { 
                 "condition": "time > 10800",
                 "consequence": "ER Sepsis Triage -> LacticAcid",
                 "livecycle_start": "None",
