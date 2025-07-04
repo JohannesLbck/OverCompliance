@@ -25,3 +25,4 @@ There is also a little script which is used for estimating the costs at discrete
 
 1. `python3 discrete_levels.py`
 
+This last script has no logging so depending on your device give it a second to execute.
