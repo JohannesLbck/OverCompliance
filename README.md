@@ -22,7 +22,7 @@ The BPIC2017 dataset is too large to just upload to GitHub directly, so replicat
 
 1. Git Clone
 2. Move to the DataSets\Real directory `cd DataSets\Real` 
-3. Download the BPIC2017 dataset into the Datasets\Real directory [Here](https://data.4tu.nl/articles/dataset/BPI_Challenge_2017/12696884) 
+3. Download the BPIC2017 dataset into the Datasets\Real directory from [https://data.4tu.nl/articles/dataset/BPI_Challenge_2017/12696884](https://data.4tu.nl/articles/dataset/BPI_Challenge_2017/12696884) 
 4. Unzip and then gunzip the folder
 5. Transform the .xes file into a .csv or change the code of the 17\_identify to work with a .xes file instead. You can do this in python using pm4py by loading the file into python and then exporting it as .csv: `log = pm4py.read_xes('<path-to-xes-log-file.xes>')` and `log.to_csv('BPIC17.csv', sep='\t', encoding='utf-8', index=False, header=True)`
 6. `python3 17_identify.py`
