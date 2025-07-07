@@ -1,0 +1,18 @@
+The process has 31509 traces
+The process has 25978 compliant traces (|Compliant|)
+The process requires the execution of the consequence in 7669 traces (|C|)
+The process is executing the consequence in 11405 traces (|I|)
+The process is correctly executing the consequence in 2138 traces (|Per|)
+The over-compliance level of the process is 29.410644577739692%
+The maximal over-compliance level of the process is 75.66092227617506%
+The under-compliance level of the process is -17.553714811641118%
+The maximal under-compliance level of the process is -100%
+Process is NonCompliant / undercompliant
+Cost Calculation:
+Assuming: C_viol = 1500, C_con = 120, P_over = 0
+25978
+31509
+u*C_viol + (c-p)*C_con - (c-p)*P_over = Cost
+0.18*1500 + (0.36196007489923515-0.2433907772382494)*120 - (0.36196007489923515-0.2433907772382494)*0 = 284.2283157193183
+298.59849566790444
+

@@ -11,14 +11,51 @@ def verify(C,I):
         Compliant = True
     return Compliant, C, I, Per
 
-def verify_B2(df):
-    labels = df['concept:name'].tolist()
-    C = (df['CreditScore'] > 500).any()
+def verify_B2(trace_df):
+    labels = trace_df['concept:name'].tolist()
+    C1 = (trace_df['CreditScore'] < 100).any()
+    C2 = (trace_df['case:RequestedAmount'] > 40000).any()
+    C = C1 and C2
+    #I = "A_Denied" in trace_df['concept:name'].values
     I = 'W_Assess potential fraud' in labels
+    ## I am looking for some label that happens often but not all the time
+    #I = 'W_Assess potential fraud' in df['concept:name'].values 
     return verify(C, I)
+
+def verify_B3(trace_df):
+    labels = trace_df['concept:name'].tolist()
+    C = 'A_Submitted' in labels 
+    #I = "A_Denied" in trace_df['concept:name'].values
+    I = 'W_Complete application' in labels
+    ## I am looking for some label that happens often but not all the time
+    #I = 'W_Assess potential fraud' in df['concept:name'].values 
+    return verify(C, I)
+
+def verify_B4(trace_df):
+    labels = trace_df['concept:name'].tolist()
+    I= 'W_Complete application' in labels
+    #I = "A_Denied" in trace_df['concept:name'].values
+    C = 'O_Sent (mail and online)' in labels
+    ## I am looking for some label that happens often but not all the time
+    #I = 'W_Assess potential fraud' in df['concept:name'].values 
+    return verify(C, I)
+
+def verify_B5(trace_df):
+    labels = df['concept:name'].tolist()
+    C = (trace_df['case:LoanGoal'] == 'Home improvement').any()
+    I = (trace_df['case:RequestedAmount'] < 10000).any()
+    #I = "A_Denied" in trace_df['concept:name'].values
+    ## I am looking for some label that happens often but not all the time
+    #I = 'W_Assess potential fraud' in df['concept:name'].values
+    return verify(C, I)
+
 
 ## Loading
 df = pd.read_csv('DataSets/Real/BPI_17.csv', sep='\t')
+
+## For testing, only looks at 10 percent of traces
+#df= df.iloc[:int(len(df) * 0.10)]
+
 
 print(df.columns)
 
@@ -31,7 +68,7 @@ Set_C = []
 Set_I = []
 Set_Per = []
 for _, trace in grouped:
-    compliant, c, i, per = verify_B2(df)
+    compliant, c, i, per = verify_B2(trace)
     Set_Compliant.append(compliant)
     Set_C.append(c)
     Set_I.append(i)
@@ -53,7 +90,7 @@ print(f'The maximal under-compliance level of the process is -100%')
 
 if sum(Set_Compliant) == len(grouped):
     print("Process is Compliant")
-    if int(over_compliance_level) == 0:
+    if over_compliance_level == 0:
         print(f'The process is perfectly compliant')
     else:
         print(f'The process is overcompliant')
