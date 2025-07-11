@@ -7,7 +7,7 @@ QuickStart:
 
 Quickstart will test Requirement R2 on dataset M which is also used for the cost calculation example.
 
-There are three main scripts one for working with the BPIC12 and Sepsis datasets (A), one for the evaluation using the BPIC17 datase (B), and one for identification in the Synthetic datasets (C):
+There are four scripts, one for working with the BPIC12 and Sepsis datasets (A), one for the evaluation using the BPIC17 datase (B), one for identification in the Synthetic datasets (C), and one for evaluation using the (D) BPIC11 dataset. Finnaly there is (E) a scrip for reproducing the cost calculation example.
 
 ## (A) Identifcation for BPIC2012/Sepsis
 
@@ -25,7 +25,7 @@ The BPIC2017 dataset is too large to just upload to GitHub directly, so replicat
 3. Download the BPIC2017 dataset into the Datasets\Real directory from [https://data.4tu.nl/articles/dataset/BPI_Challenge_2017/12696884](https://data.4tu.nl/articles/dataset/BPI_Challenge_2017/12696884) 
 4. Unzip and then gunzip the folder
 5. Transform the .xes file into a .csv or change the code of the 17\_identify to work with a .xes file instead. You can do this in python using pm4py by loading the file into python and then exporting it as .csv: `log = pm4py.read_xes('<path-to-xes-log-file.xes>')` and `log.to_csv('BPIC17.csv', sep='\t', encoding='utf-8', index=False, header=True)`
-6. `python3 17_identify.py`
+6. `python3 17_identify.py` default it verifies B6, can change this default by passing the respective requirementi using the --r option with  ID (B6, B7, B8, or B9).
 
 To verify the different requirements simply change the ID in the code from B2 to B3, B4, or B5 respectively.
 
@@ -40,3 +40,8 @@ There is also a little script which is used for estimating the costs at discrete
 1. `python3 discrete_levels.py`
 
 This last script has no logging so depending on your device give it a second to execute.
+
+## (D) Identification for the BPIC11 dataset.
+
+1. Git Clone
+2. `python3 17_identify.py` default is B2, can change the id using option --r with the respective ID so for example `python3 17_identify.py --r B3`

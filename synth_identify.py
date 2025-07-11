@@ -30,13 +30,13 @@ print(data)
 
 Set_Compliant = []
 Set_C = []
-Set_I = []
+Set_D = []
 Set_Per = []
 for trace in data:
     compliant, c, i, per = verifiers[args.r](trace)
     Set_Compliant.append(compliant)
     Set_C.append(c)
-    Set_I.append(i)
+    Set_D.append(i)
     Set_Per.append(per)
 
 print(f'The process has {len(data)} traces')
@@ -44,9 +44,9 @@ print(f'The process has {len(data)} traces')
 max_over_compliance = (1-(sum(Set_C)/len(data)))
 print(f'The process has {sum(Set_Compliant)} compliant traces (|Compliant|)')
 print(f'The process requires the execution of the consequence in {sum(Set_C)} traces (|C|)')
-print(f'The process is executing the consequence in {sum(Set_I)} traces (|I|)')
+print(f'The process is executing the consequence in {sum(Set_D)} traces (|D|)')
 print(f'The process is correctly executing the consequence in {sum(Set_Per)} traces (|Per|)')
-over_compliance_level = ((sum(Set_I)-sum(Set_Per))/len(data))
+over_compliance_level = ((sum(Set_D)-sum(Set_Per))/len(data))
 print(f'The over-compliance level of the process is {over_compliance_level*100}%')
 print(f'The maximal over-compliance level of the process is {max_over_compliance*100}%')
 under_compliance_level = ((sum(Set_Per)-sum(Set_C))/len(data))
@@ -68,7 +68,7 @@ C_con = 120
 P_over = 0
 print(f'Assuming: C_viol = {C_viol}, C_con = {C_con}, P_over = {P_over}')
 p = sum(Set_C)/len(data)
-c = sum(Set_I)/len(data)
+c = sum(Set_D)/len(data)
 u = round(1-(sum(Set_Compliant)/len(data)),2)
 print(sum(Set_Compliant))
 print(len(data))
