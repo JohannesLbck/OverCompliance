@@ -44,4 +44,5 @@ This last script has no logging so depending on your device give it a second to 
 ## (D) Identification for the BPIC11 dataset.
 
 1. Git Clone
-2. `python3 17_identify.py` default is B2, can change the id using option --r with the respective ID so for example `python3 17_identify.py --r B3`
+2. Same procedure as (B), download the BPIC11 dataset, unzip/gunzip, trasform into a .csv, filename should be BPIC11.csv
+3. `python3 17_identify.py` default is B2, can change the id using option --r with the respective ID so for example `python3 17_identify.py --r B3`
