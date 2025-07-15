@@ -9,6 +9,8 @@ Quickstart will test Requirement R2 on dataset M which is also used for the cost
 
 There are four scripts, one for working with the BPIC12 and Sepsis datasets (A), one for the evaluation using the BPIC17 datase (B), one for identification in the Synthetic datasets (C), and one for evaluation using the (D) BPIC11 dataset. Finnaly there is (E) a scrip for reproducing the cost calculation example.
 
+The full activity labels and dataobject identifiers can be identified in the respective verification methods for the different datasets.
+
 ## (A) Identifcation for BPIC2012/Sepsis
 
 1. Git Clone
