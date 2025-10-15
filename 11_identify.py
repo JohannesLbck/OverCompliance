@@ -157,7 +157,7 @@ Set_C = []
 Set_D = []
 Set_Per = []
 for _, trace in grouped:
-    compliant, c, d, per = verify_R13(trace)
+    compliant, c, d, per = verifiers[args.r](trace)
     Set_Compliant.append(compliant)
     Set_C.append(c)
     Set_D.append(d)
